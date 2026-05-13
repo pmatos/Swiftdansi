@@ -27,7 +27,7 @@ func resolve(_ user: RenderOptions) -> ResolvedOptions {
     let wrap = user.wrap ?? true
     let autoWidth = wrap ? terminalWidth() ?? 80 : nil
     let width = user.width ?? autoWidth
-    let colorDefault = isatty(fileno(stdout)) != 0
+    let colorDefault = isatty(FileHandle.standardOutput.fileDescriptor) != 0
     let color = user.color ?? colorDefault
     let hyperlinks = color ? (user.hyperlinks ?? hyperlinkSupported()) : false
     let baseTheme = user.customTheme ?? (user.theme.map { Themes.named($0) } ?? Themes.default)
